@@ -43,15 +43,15 @@ public class SingleClassLoaderSofaSerializerFactory extends SerializerFactory {
     /**
      * logger for this class 
      */
-    private static final Logger LOGGER = LoggerFactory
-                                           .getLogger(SingleClassLoaderSofaSerializerFactory.class);
+    private static final Logger                   LOGGER            = LoggerFactory
+                                                                        .getLogger(SingleClassLoaderSofaSerializerFactory.class);
 
-    private              Map<ClassLoader, Map<String, Object>> _typeNotFoundMap  = new ConcurrentHashMap<ClassLoader, Map<String, Object>>(
-            8);
-    private static final Object                                NOT_FOUND         = new Object();
-    private              boolean                               dynamicLoadEnable = Boolean.parseBoolean(System.getProperty(
-            DYNAMIC_LOAD_ENABLE_KEY,
-            Boolean.FALSE.toString()));
+    private Map<ClassLoader, Map<String, Object>> _typeNotFoundMap  = new ConcurrentHashMap<ClassLoader, Map<String, Object>>(
+                                                                        8);
+    private static final Object                   NOT_FOUND         = new Object();
+    private boolean                               dynamicLoadEnable = Boolean.parseBoolean(System.getProperty(
+                                                                        DYNAMIC_LOAD_ENABLE_KEY,
+                                                                        Boolean.FALSE.toString()));
 
     @Override
     protected Serializer getDefaultSerializer(Class cl) {

@@ -72,7 +72,8 @@ public class SingleClassLoaderSofaSerializerFactoryTest {
         SingleClassLoaderSofaSerializerFactory factory = new SingleClassLoaderSofaSerializerFactory();
         Field field = SingleClassLoaderSofaSerializerFactory.class.getDeclaredField("_typeNotFoundMap");
         field.setAccessible(true);
-        Map<ClassLoader, Map<String, Object>> _typeNotFoundMap = (Map<ClassLoader, Map<String, Object>>) field.get(factory);
+        Map<ClassLoader, Map<String, Object>> _typeNotFoundMap = (Map<ClassLoader, Map<String, Object>>) field
+            .get(factory);
         Assert.assertEquals(0, _typeNotFoundMap.size());
         Deserializer deserializer = factory.getDeserializer("mock.xxx.MockObject");
         Assert.assertNull(deserializer);
@@ -86,13 +87,13 @@ public class SingleClassLoaderSofaSerializerFactoryTest {
             SingleClassLoaderSofaSerializerFactory factory = new SingleClassLoaderSofaSerializerFactory();
             Field field = SingleClassLoaderSofaSerializerFactory.class.getDeclaredField("_typeNotFoundMap");
             field.setAccessible(true);
-            Map<ClassLoader, Map<String, Object>> _typeNotFoundMap = (Map<ClassLoader, Map<String, Object>>) field.get(factory);
+            Map<ClassLoader, Map<String, Object>> _typeNotFoundMap = (Map<ClassLoader, Map<String, Object>>) field
+                .get(factory);
             Assert.assertEquals(0, _typeNotFoundMap.size());
             Deserializer deserializer = factory.getDeserializer("mock.xxx.MockObject");
             Assert.assertNull(deserializer);
             Assert.assertEquals(0, _typeNotFoundMap.size());
-        }
-        finally {
+        } finally {
             System.clearProperty(SerializerFactory.DYNAMIC_LOAD_ENABLE_KEY);
         }
     }
