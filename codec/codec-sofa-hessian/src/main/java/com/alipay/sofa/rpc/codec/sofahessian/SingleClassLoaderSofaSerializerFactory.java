@@ -98,17 +98,7 @@ public class SingleClassLoaderSofaSerializerFactory extends SerializerFactory {
             } catch (Exception e) {
                 if (e instanceof ClassNotFoundException) {
                     if (!dynamicLoadEnable) {
-                        Map<String, Object> typeMap = _typeNotFoundMap.get(appClassLoader);
-                        if (typeMap == null) {
-                            synchronized (this) {
-                                typeMap = _typeNotFoundMap.get(appClassLoader);
-                                if (typeMap == null) {
-                                    _typeNotFoundMap.put(appClassLoader, new ConcurrentHashMap<String, Object>(8));
-                                    typeMap = _typeNotFoundMap.get(appClassLoader);
-                                }
-                            }
-                        }
-                        typeMap.put(type, NOT_FOUND);
+                        _typeNotFoundMap.computeIfAbsent(appClassLoader, k -> new ConcurrentHashMap<>(8)).put(type, NOT_FOUND);
                     }
                     LOGGER.errorWithApp(null, LogCodes.getLog(LogCodes.ERROR_DECODE_CLASS_NOT_FOUND,
                         getClass().getName(), type, Thread.currentThread().getContextClassLoader()));
